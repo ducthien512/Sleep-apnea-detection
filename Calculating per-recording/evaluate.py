@@ -32,7 +32,7 @@ corr = all.corr()
 all1 = all.applymap(lambda a: int(a > 5))
 result = []
 for method in methods:
-    C = confusion_matrix(all1["original"], all1[method], labels=(1, 0))
+    C = confusion_matrix(all1["original"], all1[method], labels=(0, 1))
     TP, TN, FP, FN = C[0, 0], C[1, 1], C[1, 0], C[0, 1]
     acc, sn, sp = 1. * (TP + TN) / (TP + TN + FP + FN), 1. * TP / (TP + FN), 1. * TN / (TN + FP)
     auc = roc_auc_score(all["original"] > 5, all[method])
@@ -41,7 +41,7 @@ np.savetxt(os.path.join(base_dir, "Table.csv"), result, fmt="%s", delimiter=",",
            header="Method,Accuracy(%),Sensitivity(%),Specificity(%),AUC,Corr")
 
 # Define labels for confusion matrix
-labels = ['Apnea', 'Non-Apnea']
+labels = ['Non-Apnea', 'Apnea']
 
 # Plot confusion matrix
 plt.figure(figsize=(8, 6))
