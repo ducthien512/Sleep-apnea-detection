@@ -41,7 +41,7 @@ np.savetxt(os.path.join(base_dir, "Table.csv"), result, fmt="%s", delimiter=",",
            header="Method,Accuracy(%),Sensitivity(%),Specificity(%),AUC,Corr")
 
 # Define labels for confusion matrix
-labels = ['Non-Apnea', 'Apnea']
+labels = ['Apnea', 'Non-Apnea']
 
 # Plot confusion matrix
 plt.figure(figsize=(8, 6))
