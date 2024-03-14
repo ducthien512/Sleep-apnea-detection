@@ -1,7 +1,7 @@
 # CNN-Transformer-LSTM-for-sleep-apnea-detection
 Usage
 1. Get the pkl file
-- Download the Physionet Apnea-ECG dataset
+- Download the Physionet Apnea-ECG dataset https://physionet.org/content/apnea-ecg/1.0.0/
 - Run Preprocessing.py to get a file named apnea-ecg.pkl
 2. Per-segment classification
 - Run CNN-Transformer-LSTM.py
