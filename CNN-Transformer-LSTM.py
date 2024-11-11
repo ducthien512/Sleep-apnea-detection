@@ -155,12 +155,15 @@ def plot(history):
     y_true, y_pred = np.argmax(y_test, axis=-1), np.argmax(model.predict(x_test, batch_size=1024, verbose=1), axis=-1)
     C = confusion_matrix(y_true, y_pred, labels=(1, 0))
     TP, TN, FP, FN = C[0, 0], C[1, 1], C[1, 0], C[0, 1]
+    po = (TP + TN) / (TP + TN + FP + FN)
+    pe = ((TP + FP) * (TP + FN) + (FN + TN) * (FP + TN)) / (TP + TN + FP + FN) ** 2
+    kappa = (po - pe) / (1 - pe)
     acc, sn, sp = 1. * (TP + TN) / (TP + TN + FP + FN), 1. * TP / (TP + FN), 1. * TN / (TN + FP)
     f1 = f1_score(y_true, y_pred, average='binary')
     # Calculate AUC
     fpr, tpr, thresholds = roc_curve(y_test[:, 1], y_score[:, 1])
     roc_auc = auc(fpr, tpr)
-    print("acc: {}, sn: {}, sp: {}, f1: {}, AUC: {}".format(acc, sn, sp, f1, roc_auc))
+    print("acc: {}, sn: {}, sp: {}, f1: {}, AUC: {}, kappa: {}".format(acc, sn, sp, f1, roc_auc, kappa))
 
     # Define labels for confusion matrix
     labels = ['Non-Apnea', 'Apnea']
